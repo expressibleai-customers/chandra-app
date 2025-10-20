@@ -1,10 +1,10 @@
 # Stage 1: Angular build
-FROM node:16.20-alpine AS build
+FROM node:20-alpine AS build
 
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
 COPY . .
 RUN npm run build -- --configuration production --base-href=/

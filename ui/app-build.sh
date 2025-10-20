@@ -10,7 +10,7 @@ echo "🧹 Cleaning old files..."
 rm -rf node_modules/ dist/
 
 echo "📦 Installing deps..."
-npm ci
+npm install
 
 echo "🏗️ Building Angular app..."
 npm run build -- --configuration production --base-href=/
