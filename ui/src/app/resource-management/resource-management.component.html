@@ -1,0 +1,77 @@
+<div class="container">
+  <h2>Resource Management</h2>
+
+  <div *ngIf="error" class="alert alert-danger">
+    
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="filtering">Filtering</label>
+      
+
+      <input
+        id="filtering"
+        type="text"
+        formControlName="filtering"
+        class="form-control"
+        placeholder="Enter filtering"
+        [class.is-invalid]="form.get('filtering')?.invalid && form.get('filtering')?.touched">
+
+      
+      <div *ngIf="form.get('filtering')?.invalid && form.get('filtering')?.touched" class="invalid-feedback">
+
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="categorization">Categorization</label>
+      
+
+      <input
+        id="categorization"
+        type="text"
+        formControlName="categorization"
+        class="form-control"
+        placeholder="Enter categorization"
+        [class.is-invalid]="form.get('categorization')?.invalid && form.get('categorization')?.touched">
+
+      
+      <div *ngIf="form.get('categorization')?.invalid && form.get('categorization')?.touched" class="invalid-feedback">
+
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="content_management_capabilities">Content Management Capabilities</label>
+      
+
+      <input
+        id="content_management_capabilities"
+        type="text"
+        formControlName="content_management_capabilities"
+        class="form-control"
+        placeholder="Enter content management capabilities"
+        [class.is-invalid]="form.get('content_management_capabilities')?.invalid && form.get('content_management_capabilities')?.touched">
+
+      
+      <div *ngIf="form.get('content_management_capabilities')?.invalid && form.get('content_management_capabilities')?.touched" class="invalid-feedback">
+
+      </div>
+    </div>
+
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+        Submit
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
