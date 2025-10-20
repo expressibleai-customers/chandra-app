@@ -1,0 +1,46 @@
+<div class="container">
+  <h2>User Management</h2>
+
+  <div *ngIf="error" class="alert alert-danger">
+    
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="role">I am a *</label>
+      
+
+      <select 
+        id="role" 
+        formControlName="role"
+        class="form-control"
+        [class.is-invalid]="form.get('role')?.invalid && form.get('role')?.touched">
+        <option value="">Select...</option>
+        <option *ngFor="let opt of roleOptions" [value]="opt.value">
+          {{ opt.label }}
+        </option>
+      </select>
+
+      
+      <div *ngIf="form.get('role')?.invalid && form.get('role')?.touched" class="invalid-feedback">
+
+        <div *ngIf="form.get('role')?.errors?.['required']">
+          Please select your role
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+        Submit
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
