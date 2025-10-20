@@ -1,0 +1,58 @@
+<div class="container">
+  <h2>Community Platform</h2>
+
+  <div *ngIf="error" class="alert alert-danger">
+    
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="community_management">Community Management</label>
+      
+
+      <input
+        id="community_management"
+        type="text"
+        formControlName="community_management"
+        class="form-control"
+        placeholder="Enter community management"
+        [class.is-invalid]="form.get('community_management')?.invalid && form.get('community_management')?.touched">
+
+      
+      <div *ngIf="form.get('community_management')?.invalid && form.get('community_management')?.touched" class="invalid-feedback">
+
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="moderation_tools">Moderation Tools</label>
+      
+
+      <input
+        id="moderation_tools"
+        type="text"
+        formControlName="moderation_tools"
+        class="form-control"
+        placeholder="Enter moderation tools"
+        [class.is-invalid]="form.get('moderation_tools')?.invalid && form.get('moderation_tools')?.touched">
+
+      
+      <div *ngIf="form.get('moderation_tools')?.invalid && form.get('moderation_tools')?.touched" class="invalid-feedback">
+
+      </div>
+    </div>
+
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+        Submit
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
