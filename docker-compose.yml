@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: generated-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: generated_app
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/migrations:/docker-entrypoint-initdb.d
+    networks:
+      - gen
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: generated-api
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/generated_app
+      ELASTICSEARCH_ENDPOINT: http://elasticsearch:9200
+      ELASTICSEARCH_USERNAME: elastic
+      ELASTICSEARCH_PASSWORD: changeme
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - gen
+
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    container_name: generated-ui
+    ports:
+      - "4200:80"
+    depends_on:
+      - api
+    networks:
+      - gen
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: generated-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    networks:
+      - gen
+
+networks:
+  gen:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  es_data:

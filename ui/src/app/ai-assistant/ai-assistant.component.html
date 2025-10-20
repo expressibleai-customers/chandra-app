@@ -1,0 +1,81 @@
+<div class="container">
+  <h2>AI Assistant</h2>
+
+  <div *ngIf="error" class="alert alert-danger">
+    
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="name">Name *</label>
+      
+
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        class="form-control"
+        placeholder="Enter your name"
+        [class.is-invalid]="form.get('name')?.invalid && form.get('name')?.touched">
+
+      
+      <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="invalid-feedback">
+
+        <div *ngIf="form.get('name')?.errors?.['required']">
+          Name is required
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="relevant">Relevant</label>
+      
+
+      <input
+        id="relevant"
+        type="text"
+        formControlName="relevant"
+        class="form-control"
+        placeholder="Enter relevant"
+        [class.is-invalid]="form.get('relevant')?.invalid && form.get('relevant')?.touched">
+
+      
+      <div *ngIf="form.get('relevant')?.invalid && form.get('relevant')?.touched" class="invalid-feedback">
+
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="helpful_responses">Helpful Responses</label>
+      
+
+      <input
+        id="helpful_responses"
+        type="text"
+        formControlName="helpful_responses"
+        class="form-control"
+        placeholder="Enter helpful responses"
+        [class.is-invalid]="form.get('helpful_responses')?.invalid && form.get('helpful_responses')?.touched">
+
+      
+      <div *ngIf="form.get('helpful_responses')?.invalid && form.get('helpful_responses')?.touched" class="invalid-feedback">
+
+      </div>
+    </div>
+
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+        Submit
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

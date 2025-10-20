@@ -1,0 +1,58 @@
+<div class="container">
+  <h2>Care Provider Portal</h2>
+
+  <div *ngIf="error" class="alert alert-danger">
+    
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="caregivers">Caregivers</label>
+      
+
+      <input
+        id="caregivers"
+        type="text"
+        formControlName="caregivers"
+        class="form-control"
+        placeholder="Enter caregivers"
+        [class.is-invalid]="form.get('caregivers')?.invalid && form.get('caregivers')?.touched">
+
+      
+      <div *ngIf="form.get('caregivers')?.invalid && form.get('caregivers')?.touched" class="invalid-feedback">
+
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="care_receivers">Care Receivers</label>
+      
+
+      <input
+        id="care_receivers"
+        type="text"
+        formControlName="care_receivers"
+        class="form-control"
+        placeholder="Enter care receivers"
+        [class.is-invalid]="form.get('care_receivers')?.invalid && form.get('care_receivers')?.touched">
+
+      
+      <div *ngIf="form.get('care_receivers')?.invalid && form.get('care_receivers')?.touched" class="invalid-feedback">
+
+      </div>
+    </div>
+
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+        Submit
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
